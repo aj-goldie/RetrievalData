@@ -1,0 +1,62 @@
+ So you've worked hard and you've put yourself in a position where someone is asking you if you can do some work for them as a freelancer.
+ You've proven that you're capable in this field and you're already just start making some money.
+ But the worst thing you can do is just start coding and I see this happen time and time again.
+ I've made this mistake myself and even now to the point when I'm the client I make sure we have this one thing done and ticked off before anybody does anything.
+ You must write up a scope or a brief for the project and get it agreed by both parties.
+ I know it sounds really obvious but I can tell you that the levels for misunderstanding the project especially via email are huge.
+ And if you can end up wasting a load of time and money working on something that you think the client wanted, when actually they wanted something completely different.
+ There are a few main points I always cover in my scoping documents and the goal is to make it as clear as possible to everyone involved what you are going to do, how long it's going to take you and what it will cost then.
+ So the first part is always just the basic project brief.
+ So here I write out in as much detail as possible exactly what I'm going to do.
+ There is an art form to balancing being overly technical and too broad if you aren't dealing with technical people.
+ So one trick I like to do when necessary is say what the project won't do.
+ So let's imagine you're building a custom waste scraper for a client to gather some data from something.
+ I would like to say something like it's going to get data from this piece of the website, these pages and not these ones.
+ It's going to come from this source but not this one.
+ It makes it very clear what the project is going to do.
+ And maybe you're building a custom application.
+ I like to say things like you're going to get access to an application that will do this and the job to update this data is going to run every x-minutes or hours or whenever and the API endpoints are going to be like this.
+ Or basically anything like that or any reports that they're going to be able to run.
+ And make sure you outline any limitations too and come to compromises with them if you need to.
+ I know it sounds like a lot but if it's a big project with a big price tag leaving as little to the client's interpretation is extremely important.
+ Smaller projects become much simpler but I still recommend adding as much detail as you feel is appropriate.
+ The second thing which is also extremely important is the time frame. Always give yourself extra time.
+ I've let some many projects as a client where I wish I was given a more realistic timeline for completion.
+ So companies or even just individuals will have their own goals and needs external to you.
+ So giving them a time frame and delivering early is far better than dragging something out because you hit some snacks along the way and things they took longer than expected.
+ So there's always issues that can pop up so just give yourself that buffer.
+ If you get some kickback like we need x by y then really consider if you can or cannot do it in that time frame.
+ And if you can you need to either accept this and extract yourself from the project or set some goals like hey I can do this functionality for this time and then the rest of the time.
+ And then the rest for another.
+ Another section I like to include where appropriate is deliverable so stipulate exactly what you're going to deliver to the client.
+ Say which pieces of information they're going to receive and maybe what format when when data is the deliverable.
+ So if it is just send them a sample get that agreed so if they want anything extra after the fact we can agree an extra fee.
+ If it's an application it's probably not very important this section but maybe just include something like you're going to receive an access to an app that fits the above brief.
+ Just help out there.
+ So the next section which is probably going to be the one that most people are going to be interested in is the cost thing.
+ So this is always a tough one especially when you're starting out.
+ And whilst they cannot price up jobs for you do have a few tips that may help you out.
+ The first one is to always price both projects not work per hour.
+ So working to an hourly rate whilst it might be easy to calculate generally isn't recommended.
+ If you want to work out how roughly long how long roughly you think it will take to help you come up with a price you can but don't share that.
+ It will almost certainly be wrong.
+ Now hourly pricing just leads you down a horrible path of clients thinking you're too cheap per hour or too expensive.
+ Doesn't and it doesn't count in the amount of time you spend learning everything mastering your craft.
+ Consider who your client is.
+ Even small companies will think something's too cheap and be concerned that they aren't going to get a good product.
+ So try to price accordingly but be aware that you can price yourself out of jobs both being too cheap and too expensive.
+ So be realistic of your ability and try and price yourself within the project of the client.
+ But too high is almost always better as you can come down to meet the budget requirements if you want to.
+ But asking for more once you've already agreed a price is always a bad look.
+ If you're going to be delivering on something like an ongoing service make sure you add in a monthly cost to cover maintenance, upkeep, servers and all those little bits that you're going to need to do to keep the service running.
+ So this is generally how a client interaction will go almost always starts with an email asking if you can do something and how much is going to cost.
+ But this initial email will almost always include either not enough information or you'll find out their client wants something impossible.
+ So my best advice here is to arrange a call as quickly as possible if you're serious about doing the work.
+ It's much easier to take control of talking face to face, being clear about what the requirements are and the spec of the job.
+ Make sure you take some notes too.
+ Then you just need to go away do some research, work out what you need to do depending on the size and the complexity of the job.
+ And this is where I would write up the brief that we just talked about.
+ Then I would present that back to the client and I would recommend including the price and the timeframe and everything here now in case you're just way off to save yourself loads of time and pain.
+ So, and especially maybe they want something for nothing who knows. So once you've got that agreed then you can just move on to the easy part which is just doing the work.
+ So did you enjoy this content? It's a little bit different to my usual so let me know in the comments.
+ comments.

@@ -1,0 +1,205 @@
+ There's no avoiding infinite scroll, it seems to be all over the place and if you want to
+ scrape data from a site like this you're going to need a few different techniques in your
+ back pocket.
+ And in this video I'm going to show you how we can use playwright to scroll down to the
+ bottom of a page each time to load up more data and then we're going to combine that
+ with my favorite way of getting data from a website and that's the backend API.
+ So every time we scroll down it's going to fire off that Ajax request and we're going
+ to be able to intercept it using playwright and print it all out to the page.
+ This is a pretty good technique to know how to use when you're thinking about web scraping
+ although one that you might not use as common.
+ I like it because it's really easy to set up and get going and it's really good for
+ exploratory figuring out what's going on on a website.
+ So let's get started.
+ We are using playwright and it's the Cink API and this is my basic function.
+ So all this is going to do is it's going to load up a browser.
+ I've chosen not have header so we can see it.
+ I'm changing the viewport size otherwise it's really small on my screen which is a bit
+ annoying.
+ Go to the website.
+ I've put a sleep in here just to make it a bit easier.
+ Click OK on cookies and then wait for something to happen.
+ So let's run this now and we should get our browser pop up and there's our page and
+ we'll have the cookie pop up and it will click yes except once the page has hit network
+ idle which is pretty useful.
+ Wait.
+ There we go.
+ This video is sponsored by scraping be a real time web scraping API that solves a web
+ scrapers to biggest issues, JavaScript rendering and proxy management.
+ Scraping be will handle your headless browsers and manage rotating proxies for you giving
+ you a symbols used API to integrate into your own system or project.
+ The hardest part of scraping is always getting the data in the first place so why waste time
+ effort and resources doing it yourself.
+ Sloping be uses the latest Chrome browsers for quick and easy rendering and page loading,
+ taking away the issue of the heavy resource usage compared to running your own stack of
+ Chrome instances.
+ You can also send custom JavaScript snippets to evaluate on the page.
+ For example scrolling down like the one we use in this video right here.
+ This on top of a large proxy pool that will all auto rotate and are geolocated mean
+ a very quick and efficient data extraction and web scraping experience for you or your
+ development team.
+ There's a Python package to on pip to make your life even easier if you're a Python developer
+ like me.
+ So if you think any of this is appealing then go ahead and click on the link in the description
+ below and check out scraping be for yourself.
+ So we want to scroll down now there as I mentioned there are three different ways I'm
+ going to show you how to do this.
+ They're all pretty simple up to you which one you choose to use but they do have their
+ limitations because we are going to have to execute the key press or the mouse wheel or
+ the JavaScript each time to keep going down.
+ That's going to involve some kind of loop.
+ So let's go ahead and put it in here.
+ We'll just have a quick comment here scroll down and then I'm going to do 4x in range
+ and we'll say to start with just do 1 to 5 and then we can put in our first one which
+ is going to be the key press and the end key.
+ So if you're on the website and you hit end it goes to the bottom.
+ So we're going to mimic that so we can do page dot keyboard dot press and then put
+ in here the end key like this.
+ What I'll do is I'll print out some text here so I can say scrolling key press and then
+ we'll just have the number there.
+ Then we will have our just put in a little sleep so we can really see what's going on.
+ So this is basically going to do exactly what you think is going to do.
+ It's going to load up.
+ It's going to click on the cookies thing which you can put up which is a pain and then
+ it's just going to hit that end key each time and I don't have any implicit waiting or
+ anything like that but you may want to do that if you're working on it there we go.
+ You sort of scroll down pretty self expiratory.
+ So that's one way of doing it.
+ Recently I think in one of the more recent versions of playwright you can actually do mouse
+ wheel as well which is also a pretty good one.
+ So we're going to go ahead and change the keyboard here and we can do page dot mouse
+ dot wheel and then we need to give it some coordinates to scroll.
+ So we want to put something like zero and then I think maybe 15,000 or 10,000.
+ The second number being the x axis which is down.
+ There we go.
+ So that should do exactly the same thing.
+ So we'll run this and we should get scroll all the way to the bottom of the page five
+ times like we did before.
+ Well it's pretty well as you can see.
+ The last one we can do is we can actually execute some JavaScript.
+ We can evaluate JavaScript code on this page which we can then use to do exactly the
+ same thing just go to the bottom of the page.
+ So let's remove this and again we'll put in here.
+ This is what it looks like so I don't have to type that out again.
+ You can see all we're doing is we're using the JavaScript to scroll down.
+ So let's go ahead and run again and we'll see you'll get to the same exactly the same thing.
+ What we need to think about whilst this is doing this is what's actually happening when
+ we scroll down each time.
+ Well let's go ahead and look at the network tab in the browser so we can actually see
+ what's going on.
+ So when we come back to this other one we're going to do inspect.
+ We can go network and hopefully I can make this a bit bigger if not just zoom in.
+ So every time we scroll down I'm going to keep scrolling.
+ We'll see that we get these requests here.
+ Now these ones are the ones that have all of the product information in.
+ So every time we scroll down not all these teas are about knowing analytics.
+ We get a new set of products which is exactly what we would expect.
+ There's another one at the bottom, there's another one.
+ You can see them coming through.
+ Now what I generally say to people when they're looking at scraping a site like this is
+ to actually go ahead and grab this request and try to mimic it from outside of playwright.
+ This has its advantages because we can be much quicker and you can often tailor the request
+ to what you actually want.
+ But in some cases like this you can just let the browser do it.
+ If you don't need to worry about overhead or if you don't need to worry about overall
+ scraping speed you just want to monitor this set of products.
+ You can absolutely make playwright work for you.
+ So what I'm going to do is I'm just going to amend our code just a little bit.
+ So every time we hit one of these requests it's going to spit out all of this JSON data.
+ So we could then just basically save it or pass it whatever you want to do with it.
+ So let's go back to our code.
+ I'm going to keep with the JavaScript scroll just for the sake of it for now and we're
+ going to build out and we're actually going to use the network events in playwright to
+ grab that information.
+ So when we use these network events it's basically going to trigger on the response.
+ So we need to set in here somewhere we're going to do it just underneath our viewport
+ size.
+ We're going to do page dot on.
+ This is going to give us access to the actual event as you can see it's telling me
+ there all about the events we can have a look at this and read this if you wanted to
+ and somewhere down here is response.
+ There we go.
+ So this is the one that we're going to use.
+ So we're going to say on the event of response and this is every time that there is
+ a request of the response that this happens when this page is loading up.
+ What we want to do here is we want to actually access this and we can pass it in a handler
+ function into this.
+ So we'll say lambda first and the response which is going to give us access to this data.
+ So let's take a look at all of the responses.
+ So let's go ahead and just print out our response dot URL.
+ OK, so I'm going to save and then we shall run our code again and we're going to see
+ a lot of stuff coming up here.
+ So this is all of the data transferring the network transferring that's happening when this
+ page is loaded up.
+ Now you can see there's an awful lot going on here and this would be exactly the same
+ that you would see if you were to look at that network tab although on the other browser
+ I had it filtered.
+ So what can we do with this?
+ Well, we're going to need to filter this out.
+ There's a few different ways that you can do this because you have access to this response
+ URL, the response body, the response headers.
+ So one of the easiest ways to do it is just to try and pass each response body with
+ JSON and see if it accepts it.
+ So let's go ahead and have a new function.
+ We're going to pass into our responses that are just printing.
+ So we'll say I'm going to call this a check JSON and we need to pass in the response that
+ we're going to get response like this.
+ Let's give ourselves a better space.
+ So in this function we're going to use an if statement because we want to see if the
+ word products is in the response.
+ So if I go back to the response that we were looking at before with all the product data,
+ the actual request URL has the word products in it.
+ So we're only interested in this URL.
+ So we'll say if products is in response dot URL, then we're going to print out and just
+ pass out the JSON data from it.
+ So I'll just say URL is equal to response dot URL and then the body can be a response dot
+ JSON.
+ So at the moment I'm going to assume that if products is in that URL response, then I am
+ going to be able to access the JSON data because it will be JSON.
+ If we have errors with this, what we'll do is we'll add in a try and accept and we'll
+ handle the error which will probably be a decode error.
+ So we'll see where we get to.
+ So now we have our handler function for check JSON.
+ What we can do is instead of printing out here, let's remove this, we can do our check
+ JSON for the response that we're going to send there.
+ So now we're going to run this again.
+ We should hopefully get some bit more of a bit more useful information.
+ So that's given a go.
+ Okay, so we did indeed get some product information but my scroll stopped working because
+ I've removed it by accident here.
+ So I just put that back in.
+ I wonder why we weren't scrolling.
+ That will be my VIM skills letting me down.
+ But do per do per severe with VIM, trust me and that respect.
+ I'm going to remove the print for scrolling.
+ We don't need to see that anymore.
+ And let's try it again.
+ We should get a load of product information come through every time we scroll down the
+ page on the right.
+ We should get the JSON data in our program on the left.
+ Let's see.
+ There we go.
+ So you can see we're getting more and more information each time is all come through.
+ This has failed.
+ So I think this is probably to do with the waiting or the browser closed before everything
+ else was done.
+ So we would want to handle that some way.
+ But you can see where I'm getting at with this method.
+ Every time we scroll down we get a new chunk of product data for that product, for the
+ browser to load up in the page using JavaScript.
+ We can actually intercept that by just pulling that information directly from the browser
+ and having it here in its JSON glory in our terminal.
+ From here what I would expect to do would be just to iron out a few of the kinks.
+ The time.sleeps aren't great.
+ You want to look at using the play rights, wait commands, wait on element.
+ I think wait for load state is a good one.
+ I'm using that here.
+ And then you can actually just choose how you want to handle that JSON data as if you
+ would it came from anywhere.
+ Super cool method.
+ Very useful in certain situations.
+ A good one to know.
+ If you've enjoyed this and you want to know a bit more about how to handle that JSON
+ and how to work with that specific method more targeted, you're going to want to watch
+ this video right here where I go into it in a lot more detail.
+ [BLANK_AUDIO]
