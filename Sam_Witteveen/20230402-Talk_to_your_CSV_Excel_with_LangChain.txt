@@ -1,0 +1,109 @@
+ All right, in this video, I'm going to be going through how you can use
+ Langchain to talk and extract information from CSV files and Excel files just by using
+ natural language to query them. So in this case, we're going to be going back to the
+ open AI language models. So you will need an open AI key here. You can see the
+ latest version of Langchain that I'm using. And the data set that I'm going to be
+ using is the Black Friday sales data set. So this is available from Kaggle. I've put a link to
+ it here if you want to go and find out more information about it. Really, we're just using it as a
+ simple way to bring in a CSV file and test some things out. In this case, I'm bringing in the
+ train CSV. There's both a train CSV and a test CSV. It really doesn't matter here because we're
+ not training a model. We're not doing anything like that. We're just using another model to query
+ the CSV file to just get a sanity check of what's here. What I've done is basically set up pandas,
+ which I'm sure many of you will know and then use pandas to read in the CSV and then just to
+ look at what the first five records and what the column names are. So you can see that we've got
+ gender and you'll notice that gender is f and m. We've got age, which it looks like it's
+ bucketed age. We've got stay in city current city number of years. We've got marital status.
+ We've got a bunch of different things in there. We're not going to use this particular one that
+ I've set up. This is just a sanity check. Lang chain will use its own one to load it in. The way we're
+ going to do this in Lang chain is we're going to use the CSV agent. So the CSV agent has a number
+ of things you need to be a little bit careful about because what it's actually doing is running a
+ Python agent under the hood. So you want to be a bit careful of anything like a prompt injection
+ attack or something like that. So if you are using it for end users that are not yourself or not
+ people you trust, be a little bit careful about the environment that you're going to run the
+ Python agent in. In this case, we're just running it ourselves. So it's not a big deal at all.
+ Okay, so we're going to bring in from Lang chain agents. We're going to begin the create CSV agent.
+ We're going to also bring in the open AI large language model here and we're going to create this
+ agent and remember we always create an agent by passing in a language model. So that's the first thing
+ that's being passed in here. We're setting the temperature to zero. This is to basically we don't
+ want it randomly changing the facts that are in the CSV when it's feeding back, etc. We want to try
+ and reduce hallucination as much as possible. So therefore we set the temperature to zero.
+ We're passing in the CSV file itself and we're going to pass in verbose equals true. So this is
+ basically just so that we can see what's going on with the prompts as it goes through.
+ All right, so if we have a look at the agent, we can see that, okay, it's certainly got a number of
+ language models in there and language model chains in there. You can see that some of that this
+ has got the prompt in there that we've got, which we'll look at it in a second. It's also got things
+ like it's going to have an input and a scratch pad. So the ideas of a scratch pad is that it can
+ take some output from one call to the language model and use it as part of an input for the next
+ call to a language model. Let's kind of look at there and we can see that as it goes on, it passes
+ in a bunch of examples of the data and stuff that it's got in the agent. Now it's not part of
+ single that into each call, right? That's not the idea here. What we've got here is we're basically
+ passing in a prompt. So let's look at the prompt. I could just copy this prompt. It would be better if I
+ just paste it in there. And now we can read the prompt quite easily. We can see that, okay, this first
+ prompt is basically going to be you are working with a pandas data frame. So this is the same
+ thing as what I set up, but it's using its own loader for loading it. And we'll look at, you could
+ actually use that loader as a separate component later on if you wanted to. You're working with
+ a pandas data frame in Python. Did frame is the name of data frame is DF, very conventional sort of
+ thing. And then it's basically telling it, these are the tools that you can use below. In this
+ case, it's just using the Python repel, right? Re-evaluate print loop that's going on here. And
+ then it talks a little bit about the format that it can use and what it should output for actions,
+ for observations and any thoughts. And then we can see that what we do is we're eventually
+ we're passing in the head of the data frame. So this is just like what I printed it up at the top
+ of the notebook. We're passing in the input question and we're passing in the scratch pad as this
+ thing goes on. So let's take it off and start by asking a simple question. How many rows are in there?
+ So you'll see that the agent is doing a similar thing. So actually just one thing I forgot to
+ put it out is when we look at the actual agent, we can see we're not using the react agent.
+ Here we're using a zero shot agent, which is slightly different than the one that we used when
+ in the video I made about agents. All right, but we've still got a similar sort of concept here where
+ we're going to make a call. It's going to decide what sort of action to take. So we can see that
+ we've gone into this agent, executive chain. It's pasting how many rows are there. And it's thought
+ is I need to count the number of rows. So then it's going to use the Python repel for that. And it's
+ going to basically just pass in the data frame and say, okay, what's the length of the data frame?
+ The data frame is 550,000. So then it gives us back this final answer. The next thing is we can ask
+ it something a little bit more complicated. So how many people are female in here? So this is an
+ interesting one because we haven't said in the actual data frame, it doesn't use the word female
+ or male. It uses f and m. But and it uses the column name gender. So we haven't used the word
+ gender. We haven't used f. We haven't used m in the same way. But sure enough, we can see that, okay,
+ I need to count the number of people who are female. And then it works out that, okay, to do that,
+ because it's got the head of the data frame, it can work out based on the columns that are,
+ okay, it's going to be in the gender and it's going to be f. And I just need to count that. So it's
+ gone and count, it counts it all that up. And then it knows the answer and it's giving us the
+ sense of about 135,000. We can ask it more complicated questions too. So we can ask it things like,
+ how many people have stayed more than three years in the city? So that's one of the fields that they
+ have is staying current city number of years. And you can see sure enough, it's worked out that it
+ needs to filter the data frame for people who've stayed in the city in their city for more than
+ three years. And it basically just writes the pandas query here, gets the information returns that.
+ So gradually as you go along, you should try it and do more complicated things. So here I'm asking
+ it. Okay, what about how many people have stayed for more than three years and are female? So again,
+ it's done a nice job of taking the input, writing the the pandas query, which is going to be
+ the stay in city greater than three and gender equals f. And it's able then to return to us how
+ many of those people female. We can ask it quantitative questions where things like, okay,
+ other more males and females, and we can know this based on it. And we can see that, okay,
+ what it's done is in its scratch pad, in the observation, it's basically outputted that it's counted
+ the number for males and the number for females. And then from that, it's able to then work out
+ that, okay, there are more males and females. So that's the basic agent. And this will work for
+ any CSV that you want to put into it. If you want to actually make a custom agent, you could use
+ the Lang chain document loader and use the CSV loader. So this is a very simple sort of thing of just
+ loading up the CSV yourself. And then you would put in some sort of custom chain here for a specific
+ task that you want to do. If you want to use an Excel file, no problem, you just basically put in
+ some code to convert your Excel file. So this is the example of the Excel file and put it
+ converted over to be a CSV file and import it that way. So Lang chain doesn't have native,
+ it doesn't have native Excel import. And it's important that you understand that what we're doing
+ here is we're operating on it as if it's a data frame and not necessarily strictly like a spreadsheet
+ where we could look at very specific cells and formulas in those cells, that kind of thing.
+ It's a little bit different than this. So here we've put in another one that was an Excel file.
+ I've just asked it, okay, what are the column names? It's able to work out that, okay,
+ these are the column names and tell us what they are. Then it's okay, there's age. So
+ what is the average age? It's able to calculate that out. If we look at some of these that are a little
+ bit more complicated, okay, which country appears the most and how many times does it appear?
+ It goes through it, works out that United States appears the most. And you can see that once it's got
+ this information, it's going back to the language model to rewrite that information. So the country
+ that appears most is United States appearing 48 times. We can even do things like ratios. So here
+ we can basically ask it, okay, what's the ratio of males to females? And this is a different
+ CSV file than we have before. The other one had a lot more males. This one seems to have a lot
+ more females than males. But so this gives you a sense of what you can do with this for both CSV
+ files and Excel files. And it allows you to write very simple little apps that allow people who
+ don't know how to use pandas, for example, to query a bunch of data really quickly and find out
+ information that's relevant to them. Hopefully this was helpful to you. If you have any questions,
+ please put them in the comments. Remember if you like this video, please click and subscribe.
+ I will see you in the next video. Bye for now.
+ [BLANK_AUDIO]
