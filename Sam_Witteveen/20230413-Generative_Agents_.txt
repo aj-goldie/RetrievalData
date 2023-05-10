@@ -1,0 +1,291 @@
+ All right, in this video, I'm going to look at the paper,
+ generative agents, interactive,
+ similar of human view.
+ So what I'm going to do is go through the paper,
+ I'm also going to reproduce some of this in GPT-4.
+ And we're going to have a look at how you would do
+ these generative agents, et cetera,
+ using some of the ideas from the paper
+ if you wanted to do it yourself.
+ So this paper is all about creating
+ sort of autonomous agents that can at least have
+ the illusion of thinking.
+ So actually, similar is sort of creating like
+ likenesses or reflection, a representation
+ of human behavior in here.
+ And that's what they're trying to create in here.
+ And they do it with a very nice little game.
+ So we'll have a look at the game as well.
+ They've put up a demo online where you can actually watch
+ what's going on, see the different agents.
+ And there's 25 of these agents going at a time.
+ And we can also see what they're doing.
+ So we can see a lot of them are asleep.
+ If we click on one of them, it'll take us to where they are.
+ And we can actually watch what they're doing.
+ We can also see their current action here
+ and the details about them.
+ This is very cool because it's doing 25 different agents
+ at a time, but really it's come up with a system
+ for doing many agents.
+ So I don't see why this couldn't be scaled up
+ to even a lot more agents.
+ The only limitations are the pinging, the large language model,
+ et cetera.
+ So let's jump in and have a look at what this is and how
+ it's doing.
+ I'll point out that so these are the authors up here.
+ Percy Leon is probably the supervisor I'm guessing on this.
+ He was also on the alpaca paper and many other things
+ that have come out of Stanford.
+ Some of Google research people also on this paper.
+ So they basically are setting out to create a way
+ to make a simulation of human behavior and interactivity
+ between humans and objects and humans and other humans here.
+ To do that, they've created this sort of game world.
+ And while the game world is quite nice for us to be able to see it,
+ it's not the coolest thing.
+ By far how they've actually put it all together is really good.
+ So they refer to this as their interactive sandbox environment
+ that they've got going on here.
+ So what they're basically doing is getting these generative agents
+ and creating an architecture that allows them
+ to use large language models, to store records of memory,
+ experience, and then to synthesize from those actions
+ and planning that they can take for actions in the future.
+ And it turns out that this works really well and brings out
+ a lot of really interesting traits, both in what they do
+ and also how it's done.
+ So one of the examples is that one of the agents comes up
+ with the idea of a Valentine's Day party
+ and starts to spread that through conversation to other agents.
+ And then that the idea of that party gets spread right across
+ the simulation and people actually end up showing up
+ for this party that they've created themselves.
+ So if we're quite in depth in the paper,
+ I'm not going to go through everything in the paper,
+ but we're going to look at some of the key things that are going on here.
+ The idea here is that to enable these generative agents,
+ they make this agent architecture.
+ And this architecture basically stores memories, synthesizes things
+ and applies these relevant memories to generate believable behavior
+ using a large language model.
+ They talk about their architecture comprising of three parts,
+ the memory stream, which we'll look at, the long-term memory module
+ and the natural language parts, which we'll also look at.
+ And we'll try to recreate in GPT-4,
+ just through playing around with this as well.
+ They've also got a bunch of retrieval models.
+ And then that's all in the first part.
+ Then they've got this really interesting idea of reflection.
+ So if you're a fan of Westworld, one of the whole sort of themes
+ in Westworld was this idea of these agents reflecting back on their own memories
+ and their own experiences.
+ And that's kind of what this is doing, maybe not in the same way as Westworld.
+ But they've got this reflection idea, which synthesizes memories
+ into higher level inferences over time.
+ And you could argue that's something that humans actually do.
+ We take in what we see day to day, we then kind of chunk it together.
+ And we basically get it to a point where, if I ask you to describe a day from last week,
+ you're probably not going to remember all the details,
+ but you remember that, oh, yeah, I go to my car,
+ I drove to this place, I met this person, those sorts of things.
+ So that's sort of the higher level stuff.
+ And the third thing that they're really aiming at is this planning,
+ which the idea of here is to basically take some of these conclusions
+ that they've come up with and plan out actions that they can take with this.
+ Again, the generative agents is what you're seeing in the game.
+ For me, by far, the more interesting part is actually the architecture
+ that they've come up with to do this.
+ They also go into some evaluation stuff which I won't go into the video to
+ how they evaluate it.
+ So they talk a little bit about different forms of believable proxies
+ for human behavior, what sort of come before for this kind of thing.
+ And people have tried some ideas like this using RL and they point out alpha star
+ for starcraft, the opening I5 for Dota,
+ but they point out that those things are much more adversarial,
+ where you're trying to kill the opponent playing this game or something like that.
+ Whereas here, they're looking much more for collaborative sort of things
+ and more natural human behavior coming out of this.
+ Another example of where people have done something like this in the past
+ was came out of Salesforce where they actually tried to get an AI with RL
+ to manage a simulated economy, which was also very interesting.
+ And I do wonder if the next step for some of this is to start going in that direction
+ with the framework that these people have created.
+ So you can see that this is their mock world.
+ It's got a bunch of things like a park.
+ It's got places that people can go to in their houses.
+ It's got different parts in the house.
+ So people can move around.
+ The generative agents can move around, can interact in these locations.
+ All right, so you can see first off, they talk about creating this idea of creating the agent.
+ So they give an example here of a prompt to create an agent.
+ And this is sort of key to a lot of this is that what they will do is create the agents
+ and then they have like a time step in the game.
+ So at every increment of time in the game, they ask each agent, what are you doing?
+ Both what are you thinking and what action are you taking?
+ And if they're in a conversation, what's the conversation, that kind of thing.
+ So just to sort of show you an example of this, let's look at GPT-4
+ where I've done the same kind of thing that we can look at here.
+ So we've basically got, I behind an NBC game character called David Born.
+ Now this prompt I've just put in there, I'm sure they're prompts are probably much nicer.
+ And unfortunately, I don't think they've published all their prompts.
+ But then we can take an example description like what they've done.
+ And so here I've created this character.
+ I've used some of their description from some of the other people in there.
+ But I've made a new character, right?
+ David Born is a restauranter at the Jason Sushi restaurant on Brunswick Street, Fitzroy.
+ And he's always looking to make the process of running his business easier for his customers.
+ So we can see a little bit about him. He's married.
+ We've got what his wife does. We've got his child here, what they're studying.
+ And we can see also his relationships with other people in there.
+ So then what I've basically done is set this up so that at each time step,
+ I enter the command New Time Step. I want you to list the time of day and the action that David Born
+ is taking in this conversation. And then I give it some examples, a new time step, 6 a.m. David is a
+ sleep, new time step. And then sure enough, it can generate. Okay, 7 30 David is having breakfast
+ with his family, new time step. Now in the game, I'm sure they're probably specifying actually
+ when these new time steps, you know, it could, it's like every 10 minutes, every five minutes,
+ that kind of thing. You can see that the large language model is pretty good at sort of working out
+ that, okay, at 7 30 a.m. he's doing this at 9 a.m. David is opening Jason Sushi restaurant and
+ preparing for the day's customers. Okay. And then I basically say, if he's in a conversation,
+ show us the conversation. So 11 30 he's taking a lunch order from his neighbor. And we can see that
+ this is the conversation that occurred that hi, David. I'd like to have some salmon. So she
+ please of course, and get a sense of what's going on here. And we can see there's other conversations going
+ on. We can actually then ask it to generate a whole bunch of time steps here. I've asked it to
+ generate 10 between 3 p.m. and 10 p.m. And you can see sure enough, it gives these in a nice order.
+ And they make sense for the character that we've described that is David is the restauranter.
+ And so that's kind of what they're doing here once they create these characters is there
+ creating this idea of running it through in a time stamp. And actually later on, you see when they get to
+ or jump around a bit, you'll see they're creating this sort of this is going into the eventually
+ going to go into the memory stream of where we can see, okay, a timestamp of what the character is
+ doing at the various time, etc. So in the people they do talk about that you can actually go in as a
+ character yourself and interact with people and that will then change how they interact as well.
+ Because just as I showed you making the David born, you would have one of these for each of the agents
+ and each time they interact, this is where the memory comes in. So each of them has a memory of what
+ they've done and they can go through, they can update that, they can use that to plan for the next thing.
+ So this example sort of day in the life gives them some of the key things that we were talking about
+ with the time steps and stuff like that. They point out that you start to see these social behaviors
+ and for me with the really interesting part though is this kind of memory system. So let me look at the
+ diagram and I'll go through it and explain what's going on. So each character perceives something
+ in the world. So as we saw this get the GPT-4 explaining what David was doing, that's like him
+ perceiving it. That gets put into the memory stream and the memory stream will look something like
+ this where you've got timestamps with things that the character actually saw. It's then got to
+ basically work out how to use these memories and how to take actions. So to do that it's got a
+ few different things. So it's got a way of retrieving memories and we'll look at the user's
+ waiting system to do this. And then once it's retrieved those memories it either makes a plan
+ and if it makes a plan that plan gets put back into a sort of memory of its own and or it reflects
+ on it. So the whole idea of the reflection is very cool in that it can take a whole, you can sort of
+ think about the reflection as being like a summarization. So it can take a conversation that David
+ has had with someone talking about something for work and then it can summarize the key parts of
+ that that David needs to remember and that will then go back into a sort of memory system there.
+ And these retrieved memories, so this is sort of a loop going around, loops going around here.
+ These retrieved memories are then used with the plan to actually decide what actions to take.
+ Once it's got those relevant memories, once it's retrieved those actions, it determines the
+ action and it takes the next step on this. So they go in in quite in depth about how they do the
+ memory retrieval for this. One of the cool things that they mentioned in here is this whole sort of
+ waiting system of like how do you actually remember, you know, how do you actually determine what
+ to focus on and what's important kind of thing. So you don't remember everything because that's
+ just going to clutter it up and also the context span of the large language model is going to be
+ too small for you to put everything in to that context span. So they use basically a waiting
+ system for doing this and this brings up a whole interesting sort of thing as well. So they wait
+ basically on recency. So obviously things that are more recent, you're going to remember more.
+ So they use that and then that decays over time. So further the time steps are your way from
+ that happening. The memory of that will be less. They do the importance of something. So if something
+ is important, then you're more likely to remember it. Also the relevance is something that's going
+ to determine you being able to remember something if it's a relevant topic to you, you're more
+ likely to do this. So you can see that these are the numbers that they're getting. The importance
+ one is really interesting one because how do you decide what's important? So they actually give you
+ a prompt. I've taken this and we've put this into GPT4. We can play around with this. So you can see
+ this is the prompt on a scale of one to 10 where one is purely mundane and 10 is extremely
+ poignant. Rate the pongency of the following piece of David's memory. So the memory here would
+ be ordering cleaning supplies for his restaurant from the supermarket. That's going to get a
+ rating of two. And then I say, okay, applying for a loan from the bank for a restaurant expansion.
+ Now this is something you would expect that would be much more important. Sure enough,
+ it gets a rating of seven. Then I was interested to test it with things like that are more
+ personal. So we can kind of elicit David's values in some ways here that David's son getting
+ in trouble at school and David's having to go to a parent teacher meeting next Tuesday. Well,
+ that's a six for him. It's not as important as his expansion, but it's obviously a lot more
+ important than him ordering the cleaning supplies. So each of these is just a sort of simple example.
+ And this could be informed more by the character of David that we set up and we set up in his
+ values in the prompt as well. And they may be doing something like that. The idea, once they've got
+ this though, they're able to then sort of work out, okay, what do you actually pay attention to in
+ these? And then from these memories, what gets passed to a language model to use for planning
+ or to use for planning and taking action or for doing reflections. And this is where the
+ reflections come in. So generative agents, when equipped with only raw observations struggle to
+ generalize or make inferences. So this makes a lot of sense, right? If you think about it that when you
+ look at something only at a surface level, humans don't really do that. We tend to think things through
+ and think how do they relate to other things in our life, how, you know, what information was
+ more important, that kind of thing. And this is where the reflection comes in. So it can take things
+ like conversations and actions and stuff like that. And it can reflect on the higher level more
+ abstract thoughts from this. This is where they basically generate more thoughts doing this. And this is
+ done through, they talk about here using a prompt where given only the information above,
+ what are the three most salient high level questions we can answer about the subjects in the
+ statements. And they give some examples of talking to people, talking to this class more or
+ and he's obviously perhaps in the conversation, talking at a very low level about his research
+ project, stuff like that. The high level stuff is that he's writing a research paper, he enjoys
+ reading a book, he's conversing with these people, right? There's different things that are
+ you know, much more high level. And they're kind of like the summarizations of the key things
+ that we would pass into the language model for doing the planning and doing the action steps that are
+ in here. Finally, coming to the planning and reacting, again, this is done through having a sequence,
+ you know, they generate a sequence of future actions for the agent and they try to, you know,
+ the goal is to keep the agents behavior consistent over time. A plan includes a location, a starting
+ time, a duration. So that could be one of the characters going to the park and painting for four hours.
+ So you've got the location, you've got what the actual action is doing, a starting time,
+ duration in there. So they mentioned that like reflections, plans are stored in the memory stream
+ and are included in the retrieval process. This allows the agent to consider observations,
+ reflections and plans all together when deciding on how to behave. So agents might change their
+ plans, mainstream as well. So as they're doing these reflection things as they're doing the planning,
+ they're using this memory and they're sort of bring it in there just through generating it.
+ You can see in here, they've given some examples based on this, what would actually be some of
+ the plans and we can see that, okay, the plan might be to wake up complete morning routine,
+ go to college. So this is for the student, you know, work on the particular projects from this time
+ to this time. It gives you a nice plan for this. And then that would be fed in with what we looked
+ up earlier on to generate the next time steps. So the next time steps might change if they bump into
+ someone, but if they're just by themselves, they're probably going to stick to their plan over time.
+ And you can see this, they talk about, you know, reacting and updating to plans, they operate in an
+ action loop. So one of the big things is to understand this sort of game loop that's going on,
+ that at each point, like a new time is set and all the characters or all the agents go through
+ and run their evaluation and their planning and looking at their action and return that,
+ that actually is getting stored in kind of like a graph or a tree structure that's used to
+ in Jason to actually plot all this out. So when we're looking at this, if I come down here,
+ we want to find, let's say we find this character running around, this is actually all just using
+ a game engine called phaser that they're using to do this. And my guess is that they've gone through,
+ they may have made it from scratch or they may have taken one of the tutorials and
+ you can see there are some examples of tutorials in here of how to build something a little bit
+ sort of like this. And using this, this is just plot, this is basically just rendering out from Jason.
+ So they do talk about in here that the goal of what they're doing is that this environment is built
+ with phaser, that they're using Jason to actually store this and the sandbox it, and then they kind
+ of flatten out the Jason for feeding it into large language models. So if there are certain
+ things that you know, they need from the Jason, they've obviously got some ways of deciding what
+ they need and then taking those things and flattening them out. There's a lot of engineering to
+ this, not just AI stuff, there's a lot of really interesting sort of engineering going on in here.
+ And yeah, they took about how they put all this together. It is interesting to look at the prompts
+ that they use. So one of the things I haven't covered is the dialogue. So they've got a whole sort
+ of dialogue system of where they're basically just sort of kicking it off with a prompt and seeing
+ okay, what do they get back from the dialogue? Those dialogues are fed into the memory of each of
+ the agents that was involved in that dialogue. That's where you get things like the Valentine's Day
+ party is a dialogue of where one agent says to another one, hey, there's this party, it's on
+ at this time. And then that goes into the person who's listening's memory and then they're able to
+ use that to tell another agent. That's how it actually happens as we're going through this.
+ Anyway, unconscious, I've gone very long on this video. I have a read of the paper, just try coming
+ and try some of the ideas out in something like chat cheap. They actually use chat,
+ tpt, not GPT for for doing this. You can see that with just a little bit of playing with
+ GPT for I was able to get this generating similar kinds of things. So it does show that this is
+ something that you could go through the paper and reproduce if you want to. It's fun to just come
+ back and look at the game itself and see what's going on, what they're doing. We can see what's this
+ person doing. If we look down here, we can see, okay, this is where they are. This is the conversation
+ that they've got going on. And we can see they're changing over time, right? So if I pause it,
+ we can stop it and look at it. But we can see that if we follow one of these characters,
+ we can see what's going on with them over time. And this is just being rendered from the Jason,
+ right, that we're looking at. This is obviously, you know, probably not playing out in real time.
+ It's being created first with the language models. I mentioned that all the calls to the
+ different language models might take a little bit of time. But once they've got this, they can
+ then render out a whole day or something quite easily. All right. So that was the paper,
+ generative agents, interactive, similar, a cry of human behavior. Very cool paper, I think,
+ some really interesting ideas. You're definitely going to see this kind of thing happen
+ and coming to sort of non-player characters in games. Also, a lot of uses for simulation,
+ and interactive roleplay with humans. So allowing humans to try out different things before they
+ actually do it in the real world as a really good use for this kind of technology. As always,
+ if you have any questions, please put them in the comments below. If you found this video useful,
+ please click like and subscribe. I will see you in the next video. Bye for now.
+ [BLANK_AUDIO]
